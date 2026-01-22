@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import prettierPlugin from "eslint-plugin-prettier";
 import prettierConfig from "eslint-config-prettier";
+import jestPlugin from "eslint-plugin-jest";
 
 export default [
   js.configs.recommended,
@@ -10,6 +11,7 @@ export default [
     ignores: ["dist/**", "node_modules/**", "*.min.js"],
   },
 
+  // Configuración general para archivos JavaScript
   {
     files: ["**/*.js"],
     languageOptions: {
@@ -30,9 +32,24 @@ export default [
       "no-unused-vars": "warn",
       "no-console": "off",
       "no-debugger": "warn",
-      // Desactivamos reglas de espaciado para que Prettier las maneje
       "space-before-function-paren": "off",
       "space-before-blocks": "off",
+    },
+  },
+
+  // Configuración específica para archivos de test
+  {
+    files: ["**/*.test.js", "**/*.spec.js"],
+    plugins: {
+      jest: jestPlugin,
+    },
+    languageOptions: {
+      globals: {
+        ...jestPlugin.environments.globals.globals,
+      },
+    },
+    rules: {
+      ...jestPlugin.configs.recommended.rules,
     },
   },
 ];

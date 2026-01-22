@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:src": "eslint src/",
@@ -18,15 +19,23 @@
   },
   "author": "Rodrigo Bernahola",
   "license": "ISC",
+  "jest": {
+    "verbose": true
+  },
   "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/preset-env": "^7.28.6",
     "@eslint/js": "^9.31.0",
+    "babel-jest": "^30.2.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jest": "^29.12.1",
     "eslint-plugin-prettier": "^5.5.3",
     "eslint-webpack-plugin": "^5.0.2",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
+    "jest": "^30.2.0",
     "prettier": "3.6.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.100.1",
