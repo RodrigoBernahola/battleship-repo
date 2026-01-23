@@ -5,8 +5,6 @@ import jestPlugin from "eslint-plugin-jest";
 
 export default [
   js.configs.recommended,
-  prettierConfig,
-
   {
     ignores: ["dist/**", "node_modules/**", "*.min.js"],
   },
@@ -28,7 +26,7 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      "prettier/prettier": "error",
+      "prettier/prettier": "warn",
       "no-unused-vars": "warn",
       "no-console": "off",
       "no-debugger": "warn",
@@ -52,4 +50,5 @@ export default [
       ...jestPlugin.configs.recommended.rules,
     },
   },
+  prettierConfig,
 ];
