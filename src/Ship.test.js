@@ -61,7 +61,7 @@ describe("Ship", () => {
 
       expect(ship.isSunk()).toBe(true);
     });
-
+    //no debe haber posibilidad de golpear un barco hundido previamente
     test("should return true when hits exceed length", () => {
       const ship = new Ship(2);
 
