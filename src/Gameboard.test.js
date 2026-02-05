@@ -81,4 +81,40 @@ describe("Gameboard", () => {
       ).toBe(false);
     });
   });
+  describe("Checking the receiveAttack method", () => {
+    test("Should return the ship that was attacked", () => {
+      const gameBoardInstance = new Gameboard();
+      const shipInstanceOne = new Ship(4);
+      gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
+      expect(gameBoardInstance.receiveAttack(0, 0)).toBe(shipInstanceOne);
+    });
+    test("Should increase the number of hits in the ship that was attacked (0 to 1)", () => {
+      const gameBoardInstance = new Gameboard();
+      const shipInstanceOne = new Ship(4);
+      gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
+      gameBoardInstance.receiveAttack(0, 0);
+      expect(shipInstanceOne.hitsReceived).toBe(1);
+    });
+    test("Should return null if the attack was not succesfull", () => {
+      const gameBoardInstance = new Gameboard();
+      const shipInstanceOne = new Ship(4);
+      gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
+      expect(gameBoardInstance.receiveAttack(4, 4)).toBe(null);
+    });
+    test("Should return false if the game has not finished after an attack to a ship", () => {
+      const gameBoardInstance = new Gameboard();
+      const shipInstanceOne = new Ship(4);
+      gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
+      expect(gameBoardInstance.processAttack(0, 0)).toBe(false);
+    });
+    test("Should return true if the number of ships is 0 after a succesfull attack", () => {
+      const gameBoardInstance = new Gameboard();
+      const shipInstanceOne = new Ship(4);
+      gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
+      gameBoardInstance.processAttack(0, 0);
+      gameBoardInstance.processAttack(0, 1);
+      gameBoardInstance.processAttack(0, 2);
+      expect(gameBoardInstance.processAttack(0, 3)).toBe(true);
+    });
+  });
 });
