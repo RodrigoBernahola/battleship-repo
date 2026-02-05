@@ -1,5 +1,5 @@
-import { Player } from "./Player.js";
-import { Gameboard } from "./Gameboard.js";
+import { Player } from "../domain/Player.js";
+import { Gameboard } from "../domain/Gameboard.js";
 
 describe("Player", () => {
   describe("Constructor", () => {

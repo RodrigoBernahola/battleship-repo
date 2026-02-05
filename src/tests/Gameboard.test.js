@@ -1,5 +1,5 @@
-import { Gameboard } from "./Gameboard.js";
-import { Ship } from "./Ship.js";
+import { Gameboard } from "../domain/Gameboard.js";
+import { Ship } from "../domain/Ship.js";
 
 describe("Gameboard", () => {
   describe("Creating objects", () => {

@@ -16,14 +16,15 @@ export class Gameboard {
   _checkForCoordinates(xCoordinate, yCoordinate, ship, direction) {
     if (this.board[xCoordinate][yCoordinate] !== null) return false;
     let limit = ship.length;
-    if (xCoordinate + limit > 10 || yCoordinate + limit > 10) return false;
 
     if (direction === "vertical") {
+      if (xCoordinate + limit > 9) return false;
       for (let i = xCoordinate; limit > 0; i++) {
         if (this.board[i][yCoordinate] !== null) return false;
         limit--;
       }
     } else {
+      if (yCoordinate + limit > 9) return false;
       for (let i = yCoordinate; limit > 0; i++) {
         if (this.board[xCoordinate][i] !== null) return false;
         limit--;
@@ -148,6 +149,13 @@ export class Gameboard {
     }
   }
   receiveAttack(xCoordinate, yCoordinate) {
+    const coordsString = `${xCoordinate}, ${yCoordinate}`;
+    if (
+      this.hitCoordinates.includes(coordsString) ||
+      this.missedCoordinates.includes(coordsString)
+    )
+      return false;
+
     const targetCell = this.board[xCoordinate][yCoordinate];
 
     if (targetCell instanceof Ship) {
@@ -160,8 +168,11 @@ export class Gameboard {
   }
   processAttack(xCoordinate, yCoordinate) {
     const resultOfAttack = this.receiveAttack(xCoordinate, yCoordinate);
+    if (resultOfAttack === false) {
+      throw new Error("The given coordinates can not be attacked again");
+    }
 
-    if (resultOfAttack !== null) {
+    if (resultOfAttack instanceof Ship) {
       if (resultOfAttack.isSunk()) {
         this.shipsRemaining--;
       }

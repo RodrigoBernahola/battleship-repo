@@ -1,4 +1,4 @@
-import { Ship } from "./Ship.js";
+import { Ship } from "../domain/Ship.js";
 
 describe("Ship", () => {
   describe("constructor", () => {
