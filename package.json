@@ -2,7 +2,7 @@
   "name": "Template Repository",
   "version": "1.0.0",
   "description": "Un repositorio cuyo proposito es servir como template",
-  "main": "index.js",
+  "main": "Controller.js",
   "type": "module",
   "scripts": {
     "dev": "webpack serve --config webpack.dev.js",
