@@ -185,7 +185,7 @@ export class Gameboard {
     return "miss";
   }
 
-  getBoardDataFromPlayer() {
+  getBoardDataForPlayer() {
     let boardData = [];
 
     for (let i = 0; i < 10; i++) {

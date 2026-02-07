@@ -62,14 +62,14 @@ export class GameController {
   }
 
   getCurrentGameState() {
-    let boardDataFromPlayer = this.playerOne.gameBoard.getBoardDataFromPlayer();
+    let boardDataForlayer = this.playerOne.gameBoard.getBoardDataForPlayer();
     return {
       "Player Board": {
         hits: [...this.playerOne.gameBoard.hitCoordinates],
         misses: [...this.playerOne.gameBoard.missedCoordinates],
-        ships: boardDataFromPlayer,
+        ships: boardDataForlayer,
       },
-      "CPU board": {
+      "CPU Board": {
         hits: [...this.playerTwo.gameBoard.hitCoordinates],
         misses: [...this.playerTwo.gameBoard.missedCoordinates],
         ships: this.playerTwo.gameBoard.shipsRemaining,

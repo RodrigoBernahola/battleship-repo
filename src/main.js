@@ -2,6 +2,7 @@ import "./styles.css";
 import { Player } from "./domain/Player.js";
 import { Ship } from "./domain/Ship.js";
 import { GameController } from "./application/GameController.js";
+import { BoardView } from "./presentation/boardView.js";
 
 //Crear todos los objetos necesarios en forma de Mockup y simular una partida
 //Utilizar solo los metodos de domain, a través de GameController, SIN utilizar el DOM.
@@ -62,25 +63,31 @@ gameControllerInstance.startGame();
 //Procesar los ataques dadas unas coordenadas recibidas, mockeando el DOM (o UI)
 console.log(gameControllerInstance);
 
-// while (!gameControllerInstance.gameOver) {
-//   if (gameControllerInstance.currentPlayerTurn === playerOne) {
-//     let x = parseInt(window.prompt("Ingresa la coordenada X a atacar: "));
-//     let y = parseInt(window.prompt("Ingresa la coordenada Y a atacar: "));
-//     //¿Usar otro try catch si la coordenada ingresada no es valida?
-//     let resultOfPlayerAttack = gameControllerInstance.handlePlayerAttack(x, y);
-//     if (resultOfPlayerAttack === "miss") {
-//       gameControllerInstance.switchTurns();
-//     }
-//   } else {
-//     let resultOfCPUAttack = gameControllerInstance.handleCPUAttack();
-//     if (resultOfCPUAttack === "miss") {
-//       gameControllerInstance.switchTurns();
-//     }
-//   }
-// }
+const boardViewInstance = new BoardView();
+boardViewInstance.initialize(document.querySelector("#player-board"));
+boardViewInstance.initialize(document.querySelector("#computer-board"));
 
-//agregar validacion extra para re intentar ataque al atacar una celda ya atacada antes o fuera del limite
-//agregar getCurrentGameState()
-console.log(
-  gameControllerInstance.playerOne.gameBoard.getBoardDataFromPlayer(),
-);
+const playerBoardDOM = document.querySelector("#player-board");
+const CPUBoardDOM = document.querySelector("#computer-board");
+
+let currentState = gameControllerInstance.getCurrentGameState();
+console.log(currentState);
+gameControllerInstance.handlePlayerAttack(1, 1);
+gameControllerInstance.handlePlayerAttack(0, 0);
+gameControllerInstance.handleCPUAttack();
+gameControllerInstance.handleCPUAttack();
+gameControllerInstance.handleCPUAttack();
+gameControllerInstance.handleCPUAttack();
+
+currentState = gameControllerInstance.getCurrentGameState();
+const boardDataFromPlayer = currentState["Player Board"];
+const boardDataFromCPU = currentState["CPU Board"];
+
+boardViewInstance.render(playerBoardDOM, boardDataFromPlayer, true);
+boardViewInstance.render(CPUBoardDOM, boardDataFromCPU, false);
+
+//console.log(currentState["Player Board"]);
+// const hitsFromPlayer = currentState["Player Board"].hits;
+// console.log(hitsFromPlayer);
+// const missesFromPlayer = currentState["Player Board"].misses;
+// const shipsFromPlayer = currentState["Player Board"].ships;
