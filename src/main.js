@@ -85,3 +85,12 @@ uIController.setupCPUBoardClickHandler(
   gameControllerInstance,
   boardViewInstance,
 );
+
+uIController.setupNewGameButton(
+  document.querySelector("#new-game-btn"),
+  gameControllerInstance,
+  boardViewInstance,
+);
+
+document.querySelector("#game-message").textContent =
+  "¡Tu turno! Ataca el tablero enemigo";
