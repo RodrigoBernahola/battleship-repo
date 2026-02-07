@@ -62,23 +62,25 @@ gameControllerInstance.startGame();
 //Procesar los ataques dadas unas coordenadas recibidas, mockeando el DOM (o UI)
 console.log(gameControllerInstance);
 
-while (!gameControllerInstance.gameOver) {
-  if (gameControllerInstance.currentPlayerTurn === playerOne) {
-    let x = parseInt(window.prompt("Ingresa la coordenada X a atacar: "));
-    let y = parseInt(window.prompt("Ingresa la coordenada Y a atacar: "));
-    //¿Usar otro try catch si la coordenada ingresada no es valida?
-    let resultOfPlayerAttack = gameControllerInstance.handlePlayerAttack(x, y);
-    if (resultOfPlayerAttack === "miss") {
-      gameControllerInstance.switchTurns();
-    }
-  } else {
-    let resultOfCPUAttack = gameControllerInstance.handleCPUAttack();
-    if (resultOfCPUAttack === "miss") {
-      gameControllerInstance.switchTurns();
-    }
-  }
-}
+// while (!gameControllerInstance.gameOver) {
+//   if (gameControllerInstance.currentPlayerTurn === playerOne) {
+//     let x = parseInt(window.prompt("Ingresa la coordenada X a atacar: "));
+//     let y = parseInt(window.prompt("Ingresa la coordenada Y a atacar: "));
+//     //¿Usar otro try catch si la coordenada ingresada no es valida?
+//     let resultOfPlayerAttack = gameControllerInstance.handlePlayerAttack(x, y);
+//     if (resultOfPlayerAttack === "miss") {
+//       gameControllerInstance.switchTurns();
+//     }
+//   } else {
+//     let resultOfCPUAttack = gameControllerInstance.handleCPUAttack();
+//     if (resultOfCPUAttack === "miss") {
+//       gameControllerInstance.switchTurns();
+//     }
+//   }
+// }
 
 //agregar validacion extra para re intentar ataque al atacar una celda ya atacada antes o fuera del limite
 //agregar getCurrentGameState()
-console.log(gameControllerInstance);
+console.log(
+  gameControllerInstance.playerOne.gameBoard.getBoardDataFromPlayer(),
+);

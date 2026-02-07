@@ -196,12 +196,6 @@ export class Gameboard {
             y: j,
             hasShip: true,
           });
-        } else {
-          boardData.push({
-            x: i,
-            y: j,
-            hasShip: false,
-          });
         }
       }
     }
