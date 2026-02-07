@@ -18,13 +18,13 @@ export class Gameboard {
     let limit = ship.length;
 
     if (direction === "vertical") {
-      if (xCoordinate + limit > 9) return false;
+      if (xCoordinate + limit - 1 > 9) return false;
       for (let i = xCoordinate; limit > 0; i++) {
         if (this.board[i][yCoordinate] !== null) return false;
         limit--;
       }
     } else {
-      if (yCoordinate + limit > 9) return false;
+      if (yCoordinate + limit - 1 > 9) return false;
       for (let i = yCoordinate; limit > 0; i++) {
         if (this.board[xCoordinate][i] !== null) return false;
         limit--;

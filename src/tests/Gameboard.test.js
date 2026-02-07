@@ -41,7 +41,7 @@ describe("Gameboard", () => {
       const gameBoardInstance = new Gameboard();
       const shipInstance = new Ship(5);
       expect(
-        gameBoardInstance.placeShip(6, 5, shipInstance, "horizontal"),
+        gameBoardInstance.placeShip(6, 6, shipInstance, "horizontal"),
       ).toBe(false);
     });
     test("Check if the ship is not placed over other ship in coordinates (0, 0)", () => {
@@ -101,20 +101,21 @@ describe("Gameboard", () => {
       gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
       expect(gameBoardInstance.receiveAttack(4, 4)).toBe(null);
     });
-    test("Should return false if the game has not finished after an attack to a ship", () => {
+    test("Should return 'hit' if the game has not finished after an attack to a ship", () => {
       const gameBoardInstance = new Gameboard();
       const shipInstanceOne = new Ship(4);
       gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
-      expect(gameBoardInstance.processAttack(0, 0)).toBe(false);
+      expect(gameBoardInstance.processAttack(0, 0)).toBe("hit");
     });
-    test("Should return true if the number of ships is 0 after a succesfull attack", () => {
+
+    test("Should return 'end' if the number of ships is 0 after a successful attack", () => {
       const gameBoardInstance = new Gameboard();
       const shipInstanceOne = new Ship(4);
       gameBoardInstance.placeShip(0, 0, shipInstanceOne, "horizontal");
       gameBoardInstance.processAttack(0, 0);
       gameBoardInstance.processAttack(0, 1);
       gameBoardInstance.processAttack(0, 2);
-      expect(gameBoardInstance.processAttack(0, 3)).toBe(true);
+      expect(gameBoardInstance.processAttack(0, 3)).toBe("end");
     });
   });
 });

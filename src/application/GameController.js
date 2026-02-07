@@ -62,12 +62,12 @@ export class GameController {
   }
 
   getCurrentGameState() {
-    let boardDataForlayer = this.playerOne.gameBoard.getBoardDataForPlayer();
+    let boardDataForPlayer = this.playerOne.gameBoard.getBoardDataForPlayer();
     return {
       "Player Board": {
         hits: [...this.playerOne.gameBoard.hitCoordinates],
         misses: [...this.playerOne.gameBoard.missedCoordinates],
-        ships: boardDataForlayer,
+        ships: boardDataForPlayer,
       },
       "CPU Board": {
         hits: [...this.playerTwo.gameBoard.hitCoordinates],
@@ -76,7 +76,7 @@ export class GameController {
       },
       currentTurn: this.currentPlayerTurn.name,
       gameOver: this.gameOver,
-      winner: this.winner,
+      winner: this.winner ? this.winner.name : null,
     };
   }
 }
