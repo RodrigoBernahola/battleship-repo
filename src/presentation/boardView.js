@@ -16,7 +16,6 @@ export class BoardView {
     const result = [];
 
     ArrayOfObjectOfShips.forEach((element) => {
-      console.log(element);
       result.push(`${element.x}, ${element.y}`);
     });
 
@@ -34,7 +33,6 @@ export class BoardView {
     const divCells = Array.from(DOMContainer.children);
     if (infoFlag) {
       arrayOfStrings = this._getArrayOfStrings(dataObject.ships);
-      console.log(arrayOfStrings);
     }
     divCells.forEach((cell) => {
       this._cleanCellClass(cell);

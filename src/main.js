@@ -3,6 +3,7 @@ import { Player } from "./domain/Player.js";
 import { Ship } from "./domain/Ship.js";
 import { GameController } from "./application/GameController.js";
 import { BoardView } from "./presentation/boardView.js";
+import { UIController } from "./presentation/UIController.js";
 
 //Crear todos los objetos necesarios en forma de Mockup y simular una partida
 //Utilizar solo los metodos de domain, a través de GameController, SIN utilizar el DOM.
@@ -71,23 +72,16 @@ const playerBoardDOM = document.querySelector("#player-board");
 const CPUBoardDOM = document.querySelector("#computer-board");
 
 let currentState = gameControllerInstance.getCurrentGameState();
-console.log(currentState);
-gameControllerInstance.handlePlayerAttack(1, 1);
-gameControllerInstance.handlePlayerAttack(0, 0);
-gameControllerInstance.handleCPUAttack();
-gameControllerInstance.handleCPUAttack();
-gameControllerInstance.handleCPUAttack();
-gameControllerInstance.handleCPUAttack();
-
-currentState = gameControllerInstance.getCurrentGameState();
 const boardDataFromPlayer = currentState["Player Board"];
 const boardDataFromCPU = currentState["CPU Board"];
 
 boardViewInstance.render(playerBoardDOM, boardDataFromPlayer, true);
 boardViewInstance.render(CPUBoardDOM, boardDataFromCPU, false);
 
-//console.log(currentState["Player Board"]);
-// const hitsFromPlayer = currentState["Player Board"].hits;
-// console.log(hitsFromPlayer);
-// const missesFromPlayer = currentState["Player Board"].misses;
-// const shipsFromPlayer = currentState["Player Board"].ships;
+const uIController = new UIController();
+console.log(uIController);
+uIController.setupCPUBoardClickHandler(
+  CPUBoardDOM,
+  gameControllerInstance,
+  boardViewInstance,
+);
