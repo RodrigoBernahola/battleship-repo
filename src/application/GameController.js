@@ -1,7 +1,3 @@
-import { Ship } from "../domain/Ship.js";
-// import { Gameboard } from "../domain/Gameboard.js";
-// import { Player } from "../domain/Player.js";
-
 export class GameController {
   constructor(playerOne, playerTwo) {
     this.playerOne = playerOne;
@@ -9,21 +5,13 @@ export class GameController {
     this.currentPlayerTurn;
     this.opponentPlayer;
     this.gameOver = false;
+    this.winner;
   }
 
   startGame() {
     this.currentPlayerTurn = this.playerOne;
     this.opponentPlayer = this.playerTwo;
     this.gameOver = false;
-  }
-
-  placeShip(player, ship, x, y, direction) {
-    const result = player.gameBoard.placeShip(x, y, ship, direction);
-    if (!result) {
-      throw new Error("The given coordinates are not accesible");
-    }
-
-    return true;
   }
 
   switchTurns() {
@@ -36,16 +24,58 @@ export class GameController {
     }
   }
 
-  handleAttack(x, y) {
-    try {
-      const result = this.opponentPlayer.gameBoard.processAttack(x, y);
-      if (result) {
-        this.gameOver = true;
-      } else {
-        this.switchTurns();
+  _getRandomIntInclusive() {
+    let min = Math.ceil(0);
+    let max = Math.floor(9);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  handleCPUAttack() {
+    while (true) {
+      try {
+        let x = this._getRandomIntInclusive();
+        let y = this._getRandomIntInclusive();
+        const result = this.playerOne.gameBoard.processAttack(x, y);
+        if (result === "end") {
+          this.gameOver = true;
+          this.winner = this.playerTwo;
+        }
+        return result;
+      } catch (error) {
+        console.error(error, error.message);
+        continue;
       }
+    }
+  }
+
+  handlePlayerAttack(x, y) {
+    try {
+      const result = this.playerTwo.gameBoard.processAttack(x, y);
+      if (result === "end") {
+        this.gameOver = true;
+        this.winner = this.playerOne;
+      }
+      return result;
     } catch (error) {
       console.error(error, error.message);
     }
+  }
+
+  getCurrentGameState() {
+    return {
+      "Player Board": {
+        hits: [...this.playerOne.gameBoard.hitCoordinates],
+        misses: [...this.playerOne.gameBoard.missedCoordinates],
+        ships: this.playerOne.gameBoard.shipsRemaining,
+      },
+      "CPU board": {
+        hits: [...this.playerTwo.gameBoard.hitCoordinates],
+        misses: [...this.playerTwo.gameBoard.missedCoordinates],
+        ships: this.playerTwo.gameBoard.shipsRemaining,
+      },
+      currentTurn: this.currentPlayerTurn,
+      gameOver: this.gameOver,
+      winner: this.winner,
+    };
   }
 }

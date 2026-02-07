@@ -161,9 +161,9 @@ export class Gameboard {
     if (targetCell instanceof Ship) {
       targetCell.hit();
       this.hitCoordinates.push(`${xCoordinate}, ${yCoordinate}`);
+    } else {
+      this.missedCoordinates.push(`${xCoordinate}, ${yCoordinate}`);
     }
-
-    this.missedCoordinates.push(`${xCoordinate}, ${yCoordinate}`);
     return targetCell;
   }
   processAttack(xCoordinate, yCoordinate) {
@@ -177,10 +177,35 @@ export class Gameboard {
         this.shipsRemaining--;
       }
       if (this.shipsRemaining === 0) {
-        return true;
+        return "end";
+      }
+      return "hit";
+    }
+
+    return "miss";
+  }
+
+  getBoardDataFromPlayer() {
+    let boardData = [];
+
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (this.board[i][j] instanceof Ship) {
+          boardData.push({
+            x: i,
+            y: j,
+            hasShip: true,
+          });
+        } else {
+          boardData.push({
+            x: i,
+            y: j,
+            hasShip: false,
+          });
+        }
       }
     }
 
-    return false;
+    return boardData;
   }
 }
